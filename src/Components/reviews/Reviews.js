@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { fetchSearch } from '../service/new-api';
+import PropTypes from 'prop-types';
+import style from '../pages/MovieDetailsPage.module.css'
+
 class Reviews extends Component {
     state = { 
 content: [],
@@ -8,7 +11,7 @@ content: [],
 componentDidMount() {
     const { movieId } = this.props.match.params
   fetchSearch(movieId).then(data => {
-    console.log(data.results);
+    // console.log(data.results);
         this.setState({content: data.results})
     })
 }
@@ -25,7 +28,7 @@ componentDidMount() {
               );
             })
           ) : (
-            <p>We don't have any reviews for this movie</p>
+            <p className={style.message}>We don't have any reviews for this movie</p>
           )}
         </ul>
         );
@@ -33,3 +36,7 @@ componentDidMount() {
 }
 
 export default Reviews;
+
+Reviews.propTypes = {
+  movieId: PropTypes.string,
+};
